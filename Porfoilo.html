@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overloadx100 - Web Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & base */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Poppins', sans-serif; background:#0d0d0d; color:#e0e0e0; scroll-behavior:smooth; }
+    a { color:#7f5af0; text-decoration:none; transition:0.3s; }
+    a:hover { color:#00d4ff; }
+
+    /* Header / Hero */
+    header {
+      height:100vh;
+      background: linear-gradient(135deg, #7f5af0, #00d4ff);
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
+      text-align:center;
+      color:white;
+    }
+    header h1 { font-size:3em; margin-bottom:20px; }
+    header p { font-size:1.2em; margin-bottom:30px; }
+    header a {
+      padding:12px 30px;
+      background:#0d0d0d;
+      color:white;
+      border-radius:30px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+    header a:hover { background:white; color:#7f5af0; }
+
+    /* Sections */
+    section { padding:80px 20px; max-width:1000px; margin:auto; }
+    section h2 { font-size:2.2em; margin-bottom:40px; text-align:center; color:#7f5af0; }
+
+    /* About */
+    #about p { font-size:1.1em; line-height:1.6; text-align:center; }
+
+    /* Projects */
+    .projects { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:30px; }
+    .project-card {
+      background:#1a1a1a;
+      border-radius:15px;
+      overflow:hidden;
+      box-shadow:0 8px 20px rgba(0,0,0,0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-10px);
+      box-shadow:0 12px 25px rgba(0,0,0,0.7);
+    }
+    .project-card img {
+      width:100%; display:block;
+    }
+    .project-card div { padding:20px; }
+    .project-card h3 { margin-bottom:10px; color:#00d4ff; }
+    .project-card p { font-size:0.95em; line-height:1.4; }
+
+    /* Contact */
+    #contact p { text-align:center; font-size:1.1em; }
+
+    /* Footer */
+    footer {
+      background:#111;
+      text-align:center;
+      padding:30px 20px;
+      color:#888;
+    }
+
+    /* Responsive */
+    @media (max-width:600px){
+      header h1 { font-size:2em; }
+      section h2 { font-size:1.8em; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>Hi, I’m Overloadx100</h1>
+    <p>I design websites that are fun, modern, and interactive.</p>
+    <a href="#projects">See My Work</a>
+  </header>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I’m 13 years old and I love creating websites. I know HTML, CSS, and JavaScript, and I enjoy designing interactive and colorful web pages. My goal is to make the web a more fun and creative place!
+    </p>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <img src="https://via.placeholder.com/400x200/7f5af0/ffffff?text=Abyss-News" alt="Abyss News">
+        <div>
+          <h3>Abyss News</h3>
+          <p>A sleek news website with events and updates. Built with HTML, CSS, and interactive components.</p>
+          <a href="https://fyre-fusion.github.io/Abyss-News/#events" target="_blank">View Project</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <img src="https://via.placeholder.com/400x200/00d4ff/ffffff?text=Discord+Invite+Page" alt="Discord Invite Page">
+        <div>
+          <h3>Discord Invite Page</h3>
+          <p>A clean, visually appealing landing page to invite users to a Discord server. Fully responsive and interactive.</p>
+          <a href="https://fyre-fusion.github.io/discord-invite-page/" target="_blank">View Project</a>
+        </div>
+      </div>
+      <!-- Add more project cards here -->
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <p>Email me at: <a href="mailto:pratyushsinhablr@gmail.com">pratyushsinhablr@gmail.com</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Made with ❤️ by Overloadx100</p>
+  </footer>
+
+</body>
+</html>
+
