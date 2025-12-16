@@ -15,6 +15,7 @@ body {
   background: #0d0d0d;
   color: #e0e0e0;
   overflow-x: hidden;
+  perspective: 1000px;
 }
 
 /* NAVBAR */
@@ -26,7 +27,7 @@ nav {
   display: flex;
   justify-content: space-between;
   background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   z-index: 1000;
 }
 
@@ -45,12 +46,11 @@ header {
   justify-content:center;
   align-items:center;
   text-align:center;
-  position: relative;
 }
 
 .neon {
   color:#00d4ff;
-  text-shadow:0 0 10px #00d4ff,0 0 20px #7f5af0;
+  text-shadow:0 0 10px #00d4ff,0 0 25px #7f5af0;
 }
 
 header a {
@@ -60,7 +60,7 @@ header a {
   border-radius:30px;
   color:#00d4ff;
   box-shadow:0 0 15px #00d4ff;
-  animation: pulse 2s infinite;
+  animation: pulse 3.5s infinite;
 }
 
 /* SECTIONS */
@@ -69,8 +69,8 @@ section {
   max-width:1000px;
   margin:auto;
   opacity:0;
-  transform: translateY(60px);
-  transition:1s ease;
+  transform: translateY(80px);
+  transition:1.2s ease;
 }
 
 section.show {
@@ -95,14 +95,16 @@ section h2 {
   background:#111;
   border:1px solid #00d4ff;
   padding:20px;
-  border-radius:15px;
-  box-shadow:0 0 10px rgba(0,212,255,0.4);
-  transition:0.4s;
+  border-radius:18px;
+  box-shadow:0 0 15px rgba(0,212,255,0.4);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
-  transform:translateY(-10px) scale(1.04);
-  box-shadow:0 0 30px #00d4ff,0 0 50px #7f5af0;
+  box-shadow:
+    0 0 35px rgba(0,212,255,0.8),
+    0 0 60px rgba(127,90,240,0.6);
 }
 
 /* FOOTER */
@@ -121,20 +123,21 @@ canvas {
   z-index:-1;
 }
 
-/* MOUSE GLOW */
+/* SLOW MOUSE GLOW */
 #glow {
   position: fixed;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(0,212,255,0.3), transparent 70%);
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(0,212,255,0.25), transparent 70%);
   pointer-events: none;
   transform: translate(-50%, -50%);
+  filter: blur(10px);
 }
 
 /* ANIMATIONS */
 @keyframes pulse {
   0% { box-shadow:0 0 10px #00d4ff; }
-  50% { box-shadow:0 0 30px #7f5af0; }
+  50% { box-shadow:0 0 35px #7f5af0; }
   100% { box-shadow:0 0 10px #00d4ff; }
 }
 </style>
@@ -163,7 +166,7 @@ canvas {
   <h2>About Me</h2>
   <p style="text-align:center;">
     I’m 13 years old and love building futuristic websites using HTML, CSS, and JavaScript.
-    I focus on animations, visuals, and creativity.
+    I focus on animation, interaction, and visual polish.
   </p>
 </section>
 
@@ -197,7 +200,7 @@ canvas {
 </footer>
 
 <script>
-/* SCROLL ANIMATIONS */
+/* SCROLL REVEAL */
 const sections = document.querySelectorAll("section");
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -206,11 +209,45 @@ const observer = new IntersectionObserver(entries => {
 });
 sections.forEach(sec => observer.observe(sec));
 
-/* MOUSE GLOW */
+/* SMOOTH MOUSE GLOW (LERP) */
 const glow = document.getElementById("glow");
+let gx = innerWidth / 2, gy = innerHeight / 2;
+let tx = gx, ty = gy;
+
 document.addEventListener("mousemove", e => {
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
+  tx = e.clientX;
+  ty = e.clientY;
+});
+
+function glowLoop() {
+  gx += (tx - gx) * 0.05;
+  gy += (ty - gy) * 0.05;
+  glow.style.left = gx + "px";
+  glow.style.top = gy + "px";
+  requestAnimationFrame(glowLoop);
+}
+glowLoop();
+
+/* 3D CARD WARPING */
+document.querySelectorAll(".project-card").forEach(card => {
+  card.addEventListener("mousemove", e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const rotateX = ((y / rect.height) - 0.5) * -14;
+    const rotateY = ((x / rect.width) - 0.5) * 14;
+
+    card.style.transform = `
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      scale(1.05)
+    `;
+  });
+
+  card.addEventListener("mouseleave", () => {
+    card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+  });
 });
 
 /* PARTICLES */
@@ -219,11 +256,11 @@ const ctx = canvas.getContext("2d");
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-let particles = Array.from({length:80}, () => ({
+let particles = Array.from({length:90}, () => ({
   x: Math.random()*canvas.width,
   y: Math.random()*canvas.height,
-  vx: (Math.random()-0.5)*0.5,
-  vy: (Math.random()-0.5)*0.5
+  vx: (Math.random()-0.5)*0.3,
+  vy: (Math.random()-0.5)*0.3
 }));
 
 function animate() {
@@ -239,6 +276,11 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+
+window.addEventListener("resize", () => {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+});
 </script>
 
 </body>
