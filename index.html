@@ -1,200 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Overloadx100 - Web Designer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overloadx100 – Futuristic Portfolio</title>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
-  <style>
-    /* RESET */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0d0d0d;
-      color: #e0e0e0;
-      scroll-behavior: smooth;
-      overflow-x: hidden;
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0d0d0d;
+  color: #e0e0e0;
+  overflow-x: hidden;
+}
 
-    a {
-      color: #00d4ff;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
 
-    a:hover {
-      color: #7f5af0;
-    }
+nav a {
+  color: #00d4ff;
+  margin-left: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
 
-    /* NEON TEXT */
-    .neon {
-      color: #00d4ff;
-      text-shadow:
-        0 0 5px #00d4ff,
-        0 0 10px #00d4ff,
-        0 0 20px #7f5af0;
-    }
+/* HERO */
+header {
+  height: 100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position: relative;
+}
 
-    /* HERO */
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      animation: fadeIn 1.5s ease;
-    }
+.neon {
+  color:#00d4ff;
+  text-shadow:0 0 10px #00d4ff,0 0 20px #7f5af0;
+}
 
-    header h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-    }
+header a {
+  padding:12px 30px;
+  margin-top:20px;
+  background:#111;
+  border-radius:30px;
+  color:#00d4ff;
+  box-shadow:0 0 15px #00d4ff;
+  animation: pulse 2s infinite;
+}
 
-    header p {
-      font-size: 1.2em;
-      margin-bottom: 30px;
-      color: #aaa;
-      animation: slideUp 1.5s ease;
-    }
+/* SECTIONS */
+section {
+  padding:100px 20px;
+  max-width:1000px;
+  margin:auto;
+  opacity:0;
+  transform: translateY(60px);
+  transition:1s ease;
+}
 
-    header a {
-      padding: 12px 30px;
-      background: #111;
-      border-radius: 30px;
-      font-weight: bold;
-      text-transform: uppercase;
-      box-shadow: 0 0 10px #00d4ff;
-      animation: glowPulse 2s infinite;
-    }
+section.show {
+  opacity:1;
+  transform: translateY(0);
+}
 
-    header a:hover {
-      background: #00d4ff;
-      color: #0d0d0d;
-    }
+section h2 {
+  text-align:center;
+  margin-bottom:40px;
+  color:#00d4ff;
+}
 
-    /* SECTIONS */
-    section {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: auto;
-      animation: fadeSlide 1.2s ease;
-    }
+/* PROJECTS */
+.projects {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+}
 
-    section h2 {
-      font-size: 2.2em;
-      text-align: center;
-      margin-bottom: 40px;
-      color: #00d4ff;
-      text-shadow: 0 0 5px #00d4ff;
-    }
+.project-card {
+  background:#111;
+  border:1px solid #00d4ff;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 0 10px rgba(0,212,255,0.4);
+  transition:0.4s;
+}
 
-    /* ABOUT */
-    #about p {
-      text-align: center;
-      line-height: 1.6;
-      color: #ccc;
-    }
+.project-card:hover {
+  transform:translateY(-10px) scale(1.04);
+  box-shadow:0 0 30px #00d4ff,0 0 50px #7f5af0;
+}
 
-    /* PROJECTS GRID */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:40px;
+  border-top:1px solid #00d4ff;
+  color:#888;
+}
 
-    .project-card {
-      background: #111;
-      border: 1px solid #00d4ff;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(0,212,255,0.5);
-      opacity: 0;
-      animation: cardIn 0.8s ease forwards;
-    }
+/* PARTICLES */
+canvas {
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
 
-    .project-card:nth-child(1) { animation-delay: 0.2s; }
-    .project-card:nth-child(2) { animation-delay: 0.4s; }
-    .project-card:nth-child(3) { animation-delay: 0.6s; }
+/* MOUSE GLOW */
+#glow {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(0,212,255,0.3), transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
 
-    .project-card:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 0 25px #00d4ff, 0 0 40px #7f5af0;
-    }
-
-    .project-card h3 {
-      color: #00d4ff;
-      margin-bottom: 10px;
-    }
-
-    .project-card p {
-      font-size: 0.95em;
-      color: #ccc;
-      margin-bottom: 10px;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #111;
-      text-align: center;
-      padding: 30px;
-      border-top: 1px solid #00d4ff;
-      color: #888;
-      animation: fadeIn 2s ease;
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(60px) scale(0.9); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes glowPulse {
-      0% { box-shadow: 0 0 10px #00d4ff; }
-      50% { box-shadow: 0 0 30px #7f5af0; }
-      100% { box-shadow: 0 0 10px #00d4ff; }
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      header h1 { font-size: 2em; }
-      section h2 { font-size: 1.8em; }
-    }
-  </style>
+/* ANIMATIONS */
+@keyframes pulse {
+  0% { box-shadow:0 0 10px #00d4ff; }
+  50% { box-shadow:0 0 30px #7f5af0; }
+  100% { box-shadow:0 0 10px #00d4ff; }
+}
+</style>
 </head>
+
 <body>
+
+<canvas id="particles"></canvas>
+<div id="glow"></div>
+
+<nav>
+  <strong class="neon">Overloadx100</strong>
+  <div>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+  </div>
+</nav>
 
 <header>
   <h1 class="neon">Hi, I’m Overloadx100</h1>
-  <p>I design futuristic, interactive, and modern websites.</p>
+  <p>I design futuristic, interactive, modern websites.</p>
   <a href="#projects">See My Work</a>
 </header>
 
 <section id="about">
   <h2>About Me</h2>
-  <p>
-    I’m 13 years old and I love creating websites. I know HTML, CSS, and JavaScript,
-    and I enjoy designing interactive and colorful web pages.
+  <p style="text-align:center;">
+    I’m 13 years old and love building futuristic websites using HTML, CSS, and JavaScript.
+    I focus on animations, visuals, and creativity.
   </p>
 </section>
 
@@ -204,20 +173,20 @@
 
     <div class="project-card">
       <h3>Abyss Server News</h3>
-      <p>A sleek news channel created for the Abyss Server.</p>
-      <a href="https://fyre-fusion.github.io/Abyss-News/#events" target="_blank">View Project</a>
+      <p>Futuristic news hub.</p>
+      <a href="https://fyre-fusion.github.io/Abyss-News/#events" target="_blank">View</a>
     </div>
 
     <div class="project-card">
       <h3>Server Finder</h3>
-      <p>A clean landing page to find the perfect server.</p>
-      <a href="https://fyre-fusion.github.io/discord-invite-page/" target="_blank">View Project</a>
+      <p>Animated server landing page.</p>
+      <a href="https://fyre-fusion.github.io/discord-invite-page/" target="_blank">View</a>
     </div>
 
     <div class="project-card">
       <h3>Fyre Blogs</h3>
-      <p>A modern blog-style website with a futuristic layout.</p>
-      <a href="https://fyre-fusion.github.io/Fyre-Blogs/index.html" target="_blank">View Project</a>
+      <p>Modern blog website.</p>
+      <a href="https://fyre-fusion.github.io/Fyre-Blogs/index.html" target="_blank">View</a>
     </div>
 
   </div>
@@ -226,6 +195,51 @@
 <footer>
   <p>Made by Overloadx100</p>
 </footer>
+
+<script>
+/* SCROLL ANIMATIONS */
+const sections = document.querySelectorAll("section");
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("show");
+  });
+});
+sections.forEach(sec => observer.observe(sec));
+
+/* MOUSE GLOW */
+const glow = document.getElementById("glow");
+document.addEventListener("mousemove", e => {
+  glow.style.left = e.clientX + "px";
+  glow.style.top = e.clientY + "px";
+});
+
+/* PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = Array.from({length:80}, () => ({
+  x: Math.random()*canvas.width,
+  y: Math.random()*canvas.height,
+  vx: (Math.random()-0.5)*0.5,
+  vy: (Math.random()-0.5)*0.5
+}));
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    if(p.x<0||p.x>canvas.width) p.vx*=-1;
+    if(p.y<0||p.y>canvas.height) p.vy*=-1;
+    ctx.fillStyle = "#00d4ff";
+    ctx.fillRect(p.x,p.y,2,2);
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
 
 </body>
 </html>
