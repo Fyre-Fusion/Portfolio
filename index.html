@@ -146,15 +146,6 @@ section h2 {
     0 0 35px var(--neon-soft);
 }
 
-.project-card h3 {
-  margin-bottom: 10px;
-}
-
-.project-card p {
-  color: #e5feff;
-  opacity: 0.85;
-}
-
 /* FOOTER */
 footer {
   text-align:center;
@@ -208,15 +199,14 @@ canvas {
 
 <header>
   <h1 class="neon-text">Hi, I’m Overloadx100</h1>
-  <p>Futuristic • Interactive • Neon Web Design</p>
+  <p>I design futuristic, interactive, and modern websites.</p>
   <a href="#projects">See My Work</a>
 </header>
 
 <section id="about">
   <h2 class="neon-text">About Me</h2>
   <p style="text-align:center;">
-    I build immersive, futuristic websites with neon UI,
-    glassmorphism, depth, and smooth interaction.
+    I’m 13 years old and I love creating websites. I know HTML, CSS, and JavaScript, and I enjoy designing interactive and colorful web pages. My goal is to make the web a more futuristic and creative place!
   </p>
 </section>
 
@@ -269,7 +259,7 @@ addEventListener("mousemove", e => { tx=e.clientX; ty=e.clientY; });
   requestAnimationFrame(loop);
 })();
 
-/* 3D WARP + REFLECTION */
+/* 3D WARP + REFLECTION + GLOW COLOR CHANGE */
 document.querySelectorAll(".project-card").forEach(card=>{
   card.addEventListener("mousemove", e=>{
     const r=card.getBoundingClientRect();
@@ -279,9 +269,11 @@ document.querySelectorAll(".project-card").forEach(card=>{
     card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.04)`;
     card.style.setProperty("--rx",`${x/r.width*100}%`);
     card.style.setProperty("--ry",`${y/r.height*100}%`);
+    glow.style.background = "radial-gradient(circle, #ffffff, transparent 70%)";
   });
   card.addEventListener("mouseleave",()=>{
     card.style.transform="rotateX(0) rotateY(0) scale(1)";
+    glow.style.background = "radial-gradient(circle, var(--neon-soft), transparent 70%)";
   });
 });
 
