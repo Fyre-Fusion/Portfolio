@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overloadx100 – Neon Liquid Portfolio</title>
+<title>Overloadx100 – Neon Glass Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --hue: 210;
-  --neon: hsl(var(--hue), 100%, 60%);
-  --neon-soft: hsla(var(--hue), 100%, 60%, 0.6);
+  --neon: #00eaff;
+  --neon-soft: rgba(0,234,255,0.45);
+  --glass-bg: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.18);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -21,7 +22,6 @@ body {
   background: radial-gradient(circle at top, #0b0b0b, #020202 70%);
   color: var(--neon);
   overflow-x: hidden;
-  filter: url(#liquid);
   perspective: 1400px;
 }
 
@@ -33,9 +33,9 @@ nav {
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(16px);
   background: rgba(0,0,0,0.35);
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid var(--glass-border);
   z-index: 1000;
 }
 
@@ -59,14 +59,14 @@ header {
 .neon-text {
   color: var(--neon);
   text-shadow:
-    0 0 8px var(--neon),
-    0 0 20px var(--neon),
-    0 0 40px var(--neon-soft);
-  animation: neonPulse 4s ease-in-out infinite;
+    0 0 6px var(--neon),
+    0 0 18px var(--neon-soft);
+  animation: neonPulse 4.5s ease-in-out infinite;
 }
 
 header p {
-  color: var(--neon-soft);
+  color: #bffaff;
+  opacity: 0.8;
   margin-top: 10px;
 }
 
@@ -74,11 +74,11 @@ header a {
   margin-top: 25px;
   padding: 14px 34px;
   border-radius: 40px;
-  background: rgba(255,255,255,0.06);
+  background: var(--glass-bg);
   backdrop-filter: blur(14px);
   color: var(--neon);
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 35px var(--neon-soft);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 0 25px var(--neon-soft);
 }
 
 /* SECTIONS */
@@ -87,8 +87,8 @@ section {
   max-width: 1100px;
   margin: auto;
   opacity: 0;
-  transform: translateY(80px);
-  transition: 1.3s ease;
+  transform: translateY(70px);
+  transition: 1.2s ease;
 }
 
 section.show {
@@ -110,51 +110,66 @@ section h2 {
 
 .project-card {
   position: relative;
-  padding: 25px;
+  padding: 26px;
   border-radius: 22px;
   background: linear-gradient(
     135deg,
-    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.12),
     rgba(255,255,255,0.04)
   );
-  backdrop-filter: blur(22px);
-  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
   box-shadow:
-    0 30px 60px rgba(0,0,0,0.7),
-    0 0 60px var(--neon-soft);
+    0 20px 40px rgba(0,0,0,0.6);
   transform-style: preserve-3d;
   overflow: hidden;
+  transition: box-shadow 0.4s ease, transform 0.2s ease;
 }
 
-/* FROSTED REFLECTION */
+/* SOFT FROSTED REFLECTION */
 .project-card::before {
   content:"";
   position:absolute;
   inset:-60%;
   background: radial-gradient(
     circle at var(--rx,50%) var(--ry,50%),
-    rgba(255,255,255,0.4),
+    rgba(255,255,255,0.25),
     transparent 60%
   );
-  opacity: 0.35;
+  opacity: 0.25;
   pointer-events: none;
+}
+
+.project-card:hover {
+  box-shadow:
+    0 35px 70px rgba(0,0,0,0.8),
+    0 0 35px var(--neon-soft);
+}
+
+.project-card h3 {
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  color: #e5feff;
+  opacity: 0.85;
 }
 
 /* FOOTER */
 footer {
   text-align:center;
   padding:60px;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(14px);
   background: rgba(0,0,0,0.35);
-  border-top:1px solid rgba(255,255,255,0.15);
-  color: var(--neon-soft);
+  border-top:1px solid var(--glass-border);
+  color: #9fefff;
 }
 
 /* MOUSE GLOW */
 #glow {
   position: fixed;
-  width: 340px;
-  height: 340px;
+  width: 320px;
+  height: 320px;
   background: radial-gradient(circle, var(--neon-soft), transparent 70%);
   pointer-events: none;
   transform: translate(-50%, -50%);
@@ -169,26 +184,16 @@ canvas {
   z-index:-3;
 }
 
-/* ANIMATIONS */
+/* NEON PULSE */
 @keyframes neonPulse {
-  0%   { text-shadow:0 0 6px var(--neon),0 0 18px var(--neon-soft); }
-  50%  { text-shadow:0 0 14px var(--neon),0 0 40px var(--neon-soft); }
-  100% { text-shadow:0 0 6px var(--neon),0 0 18px var(--neon-soft); }
+  0%   { text-shadow:0 0 6px var(--neon),0 0 16px var(--neon-soft); }
+  50%  { text-shadow:0 0 12px var(--neon),0 0 28px var(--neon-soft); }
+  100% { text-shadow:0 0 6px var(--neon),0 0 16px var(--neon-soft); }
 }
 </style>
 </head>
 
 <body>
-
-<!-- LIQUID DISTORTION FILTER -->
-<svg width="0" height="0">
-  <filter id="liquid">
-    <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2" seed="2">
-      <animate attributeName="baseFrequency" dur="20s" values="0.01;0.015;0.01" repeatCount="indefinite"/>
-    </feTurbulence>
-    <feDisplacementMap in="SourceGraphic" scale="12"/>
-  </filter>
-</svg>
 
 <canvas id="particles"></canvas>
 <div id="glow"></div>
@@ -210,8 +215,8 @@ canvas {
 <section id="about">
   <h2 class="neon-text">About Me</h2>
   <p style="text-align:center;">
-    I build immersive, futuristic websites using animation, depth,
-    glassmorphism, and neon effects.
+    I build immersive, futuristic websites with neon UI,
+    glassmorphism, depth, and smooth interaction.
   </p>
 </section>
 
@@ -252,22 +257,15 @@ const obs = new IntersectionObserver(e =>
 );
 sections.forEach(s => obs.observe(s));
 
-/* COLOR SHIFT */
-let hue = 210;
-function shift() {
-  hue = (hue + 0.12) % 360;
-  document.documentElement.style.setProperty("--hue", hue);
-  requestAnimationFrame(shift);
-}
-shift();
-
-/* SMOOTH GLOW */
+/* SMOOTH MOUSE GLOW */
 const glow = document.getElementById("glow");
 let gx=innerWidth/2, gy=innerHeight/2, tx=gx, ty=gy;
 addEventListener("mousemove", e => { tx=e.clientX; ty=e.clientY; });
 (function loop(){
-  gx+=(tx-gx)*0.03; gy+=(ty-gy)*0.03;
-  glow.style.left=gx+"px"; glow.style.top=gy+"px";
+  gx+=(tx-gx)*0.03;
+  gy+=(ty-gy)*0.03;
+  glow.style.left=gx+"px";
+  glow.style.top=gy+"px";
   requestAnimationFrame(loop);
 })();
 
@@ -276,9 +274,9 @@ document.querySelectorAll(".project-card").forEach(card=>{
   card.addEventListener("mousemove", e=>{
     const r=card.getBoundingClientRect();
     const x=e.clientX-r.left, y=e.clientY-r.top;
-    const rx=((y/r.height)-0.5)*-18;
-    const ry=((x/r.width)-0.5)*18;
-    card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05)`;
+    const rx=((y/r.height)-0.5)*-14;
+    const ry=((x/r.width)-0.5)*14;
+    card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale(1.04)`;
     card.style.setProperty("--rx",`${x/r.width*100}%`);
     card.style.setProperty("--ry",`${y/r.height*100}%`);
   });
@@ -290,14 +288,19 @@ document.querySelectorAll(".project-card").forEach(card=>{
 /* PARTICLES */
 const c=document.getElementById("particles"),ctx=c.getContext("2d");
 c.width=innerWidth;c.height=innerHeight;
-let pts=Array.from({length:90},()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25}));
+let pts=Array.from({length:80},()=>({
+  x:Math.random()*c.width,
+  y:Math.random()*c.height,
+  vx:(Math.random()-.5)*0.2,
+  vy:(Math.random()-.5)*0.2
+}));
 (function anim(){
   ctx.clearRect(0,0,c.width,c.height);
   pts.forEach(p=>{
     p.x+=p.vx;p.y+=p.vy;
     if(p.x<0||p.x>c.width)p.vx*=-1;
     if(p.y<0||p.y>c.height)p.vy*=-1;
-    ctx.fillStyle=`hsl(${hue},100%,60%)`;
+    ctx.fillStyle= "#00eaff";
     ctx.fillRect(p.x,p.y,2,2);
   });
   requestAnimationFrame(anim);
