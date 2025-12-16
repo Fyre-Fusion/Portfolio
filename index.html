@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Overloadx100 – Neon Glass Portfolio</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -23,6 +22,7 @@ body {
   color: var(--neon);
   overflow-x: hidden;
   perspective: 1400px;
+  scroll-behavior: smooth;
 }
 
 /* NAVBAR */
@@ -62,6 +62,7 @@ header {
     0 0 6px var(--neon),
     0 0 18px var(--neon-soft);
   animation: neonPulse 4.5s ease-in-out infinite;
+  display:inline-block;
 }
 
 header p {
@@ -79,6 +80,11 @@ header a {
   color: var(--neon);
   border: 1px solid var(--glass-border);
   box-shadow: 0 0 25px var(--neon-soft);
+  transition: all 0.3s ease;
+}
+
+header a:hover {
+  transform: scale(1.05);
 }
 
 /* SECTIONS */
@@ -124,9 +130,9 @@ section h2 {
   transform-style: preserve-3d;
   overflow: hidden;
   transition: box-shadow 0.4s ease, transform 0.2s ease;
+  cursor: pointer;
 }
 
-/* SOFT FROSTED REFLECTION */
 .project-card::before {
   content:"";
   position:absolute;
@@ -144,6 +150,15 @@ section h2 {
   box-shadow:
     0 35px 70px rgba(0,0,0,0.8),
     0 0 35px var(--neon-soft);
+}
+
+.project-card h3 {
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  color: #e5feff;
+  opacity: 0.85;
 }
 
 /* FOOTER */
@@ -181,6 +196,15 @@ canvas {
   50%  { text-shadow:0 0 12px var(--neon),0 0 28px var(--neon-soft); }
   100% { text-shadow:0 0 6px var(--neon),0 0 16px var(--neon-soft); }
 }
+
+/* FLICKER EFFECT */
+.flicker {
+  animation: flicker 3s infinite;
+}
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity:1; }
+  20%, 22%, 24%, 55% { opacity:0.7; }
+}
 </style>
 </head>
 
@@ -190,7 +214,7 @@ canvas {
 <div id="glow"></div>
 
 <nav>
-  <strong class="neon-text">Overloadx100</strong>
+  <strong class="neon-text flicker">Overloadx100</strong>
   <div>
     <a href="#about">About</a>
     <a href="#projects">Projects</a>
@@ -198,36 +222,36 @@ canvas {
 </nav>
 
 <header>
-  <h1 class="neon-text">Hi, I’m Overloadx100</h1>
+  <h1 class="neon-text flicker">Hi, I’m Overloadx100</h1>
   <p>I design futuristic, interactive, and modern websites.</p>
   <a href="#projects">See My Work</a>
 </header>
 
 <section id="about">
-  <h2 class="neon-text">About Me</h2>
+  <h2 class="neon-text flicker">About Me</h2>
   <p style="text-align:center;">
     I’m 13 years old and I love creating websites. I know HTML, CSS, and JavaScript, and I enjoy designing interactive and colorful web pages. My goal is to make the web a more futuristic and creative place!
   </p>
 </section>
 
 <section id="projects">
-  <h2 class="neon-text">My Projects</h2>
+  <h2 class="neon-text flicker">My Projects</h2>
   <div class="projects">
 
     <div class="project-card">
-      <h3 class="neon-text">Abyss Server News</h3>
+      <h3 class="neon-text flicker">Abyss Server News</h3>
       <p>Futuristic news hub.</p>
       <a href="https://fyre-fusion.github.io/Abyss-News/#events" target="_blank">View</a>
     </div>
 
     <div class="project-card">
-      <h3 class="neon-text">Server Finder</h3>
+      <h3 class="neon-text flicker">Server Finder</h3>
       <p>Animated server landing page.</p>
       <a href="https://fyre-fusion.github.io/discord-invite-page/" target="_blank">View</a>
     </div>
 
     <div class="project-card">
-      <h3 class="neon-text">Fyre Blogs</h3>
+      <h3 class="neon-text flicker">Fyre Blogs</h3>
       <p>Modern blog website.</p>
       <a href="https://fyre-fusion.github.io/Fyre-Blogs/index.html" target="_blank">View</a>
     </div>
@@ -259,7 +283,7 @@ addEventListener("mousemove", e => { tx=e.clientX; ty=e.clientY; });
   requestAnimationFrame(loop);
 })();
 
-/* 3D WARP + REFLECTION + GLOW COLOR CHANGE */
+/* 3D TILT + GLOW ON HOVER */
 document.querySelectorAll(".project-card").forEach(card=>{
   card.addEventListener("mousemove", e=>{
     const r=card.getBoundingClientRect();
@@ -277,10 +301,10 @@ document.querySelectorAll(".project-card").forEach(card=>{
   });
 });
 
-/* PARTICLES */
+/* PARTICLES WITH CONNECTING LINES */
 const c=document.getElementById("particles"),ctx=c.getContext("2d");
 c.width=innerWidth;c.height=innerHeight;
-let pts=Array.from({length:80},()=>({
+let pts=Array.from({length:90},()=>({
   x:Math.random()*c.width,
   y:Math.random()*c.height,
   vx:(Math.random()-.5)*0.2,
@@ -288,6 +312,7 @@ let pts=Array.from({length:80},()=>({
 }));
 (function anim(){
   ctx.clearRect(0,0,c.width,c.height);
+  // draw particles
   pts.forEach(p=>{
     p.x+=p.vx;p.y+=p.vy;
     if(p.x<0||p.x>c.width)p.vx*=-1;
@@ -295,6 +320,20 @@ let pts=Array.from({length:80},()=>({
     ctx.fillStyle= "#00eaff";
     ctx.fillRect(p.x,p.y,2,2);
   });
+  // draw lines
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      let d=Math.hypot(pts[i].x-pts[j].x, pts[i].y-pts[j].y);
+      if(d<90){
+        ctx.strokeStyle=`rgba(0,234,255,${1-d/90})`;
+        ctx.lineWidth=1;
+        ctx.beginPath();
+        ctx.moveTo(pts[i].x,pts[i].y);
+        ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.stroke();
+      }
+    }
+  }
   requestAnimationFrame(anim);
 })();
 </script>
